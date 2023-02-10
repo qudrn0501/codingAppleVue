@@ -11,18 +11,11 @@
 
   <!-- (숙제) 상품 목록도 반복문으로 축약해보셈 -->
   <!-- 가격은 대충 신경쓰지 맙시다 제목만 잘뜨면 됨 -->
-  <div>
-    <h4>{{ products[0] }}</h4>
+  <div v-for="room in products" :key="room">
+    <h4>{{ room }}</h4>
     <P>40 만원</P>
   </div>
-  <div>
-    <h4>{{ products[1] }}</h4>
-    <P>50 만원</P>
-  </div>
-  <div>
-    <h4>{{ products[2] }}</h4>
-    <P>60 만원</P>
-  </div>
+
 </template>
 
 <script>
