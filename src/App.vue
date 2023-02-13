@@ -1,11 +1,6 @@
 <template>
 
-  <!-- 모달창 만들기 -->
-  <!-- 동적인 UI 만드는 법
-  1. UI의 현재 상태를 데이터로 저장해둠
-  2. 데이터에 따라 UI가 어떻게 보일지 작성 -->
-  <!-- v-if="조건식" : 조건식이 참일때만 html 보여줌 -->
-  <!-- (숙제) 모달창 닫기버튼과 기능 만들어오셈 -->
+  <!-- import export 쓰기 -->
   <div class="black-bg" v-if="모달창열렸니 == true">
     <div class="white-bg">
       <h4>상세페이지임</h4>
@@ -18,34 +13,26 @@
     <a v-for="a in 메뉴들" :key="a">{{ a }}</a> 
   </div>
 
-  <div>
-    <img src="./assets/room0.jpg" alt="room0" class="room-img">
-    <h4 @click="모달창열렸니 = true">{{ products[0] }}</h4>
-    <P>40 만원</P>
-    <button @click="increase(0)">허위매물신고</button> 
-    <span>신고수 : {{ 신고수[0] }}</span>
-  </div>
-  <div>
-    <img src="./assets/room1.jpg" alt="room1" class="room-img">
-    <h4 @click="모달창열렸니 = true">{{ products[1] }}</h4>
-    <P>50 만원</P>
-    <button @click="increase(1)">허위매물신고</button> 
-    <span>신고수 : {{ 신고수[1] }}</span>
-  </div>
-  <div>
-    <img src="./assets/room2.jpg" alt="room2" class="room-img">
-    <h4 @click="모달창열렸니 = true">{{ products[2] }}</h4>
-    <P>60 만원</P>
-    <button @click="increase(2)">허위매물신고</button> 
-    <span>신고수 : {{ 신고수[2] }}</span>
+  <!-- (숙제) 6개 상품 전부 알아서 진열해보셈 -->
+  <div v-for="(원룸, i) in 원룸들" :key="i">
+    <img :src="원룸들[i].image" class="room-img">
+    <h4>{{ 원룸들[i].title }}</h4>
+    <P>{{ 원룸들[i].price }}원</P>
   </div>
 </template>
 
 <script>
+// import / export 문법 쓰는 법
+// 1. export default 변수명
+// 2. import 변수명 from 파일경로
+import data from './assets/oneroom'
+// import {apple, apple2} from './~~' 변수 두개 이상 받을때
+
 export default {
   name: 'App',
-  data(){ // react에서는 state라고 함 (ui의 상태를 저장하는 곳)
+  data(){ 
     return {
+      원룸들 : data, // 받아온 데이터
       모달창열렸니: false,
       메뉴들 : ['Home', 'Shop', 'About'],
       products : ['역삼동원룸', '천호동원룸', '마포구원룸'],
