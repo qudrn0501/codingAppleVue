@@ -1,25 +1,22 @@
 <template>
-  <!-- v-if 문법 더 알아야할 내용
-    v-if가 참이 아니면 v-else, v-else-if 실행
-  <div v-if="1 == 2">안녕하세요</div>
-  <div v-else-if="1 == 1">안녕하지 않아요</div> -->
-
-
-  <!-- 모달창 내용 채우기 -->
-  <!-- (숙제) 이미지, 상품설명, 가격 이런거 채워오셈 -->
-  <div class="black-bg" v-if="모달창열렸니 == true">
-    <div class="white-bg">
-      <h4>{{ 원룸들[누른거].title }}</h4>
-      <img :src="원룸들[누른거].image" class="room-img">
-      <p>{{ 원룸들[누른거].content }}</p>
-      <p>{{ 원룸들[누른거].price }}</p>
-      <button @click="모달창열렸니 = false">닫기</button>
-    </div>
-  </div>
+  <!-- Component : 긴 html을 한 단어로 줄일 수 있는 문법 -->
+  <Modal />
+  <!-- 컴포넌트 만들면 데이터바인딩할 때 귀찮은 일이 생길 수 있음 -->
 
   <div class="menu">
     <a v-for="a in 메뉴들" :key="a">{{ a }}</a> 
   </div>
+
+  <!-- 축약해둔 컴포넌트 쓰는법
+  1. vue파일 import
+  2. 등록하고
+  3. 쓰셈 -->
+  <Discount />
+  <!-- 3. 쓰셈 -->
+  <!-- 컴포넌트 쓰는 이유
+  1. 아름다워
+  2. 재사용쉬움 
+  (반복적으로 출현할 부분만 컴포넌트화 권장, 코드가 필연적으로 복잡해짐) -->
 
   <div v-for="(원룸, i) in 원룸들" :key="i">
     <img :src="원룸들[i].image" class="room-img">
@@ -30,6 +27,8 @@
 
 <script>
 import data from './assets/oneroom'
+import Discount from './Discount.vue' // 1. vue파일 import
+import Modal from './Modal.vue' 
 
 export default {
   name: 'App',
@@ -49,6 +48,10 @@ export default {
     }
   },
   components: {
+    // 2. 등록하고
+    Discount : Discount, // 왼쪽은 자유작명 : 오른쪽은 import한 이름
+    //  Discount, es6 신문법, 하나만 해도 된다
+    Modal,
   }
 }
 </script>
@@ -93,4 +96,5 @@ div {
   border-radius: 8px;
   padding: 20px;
 }
+
 </style>
