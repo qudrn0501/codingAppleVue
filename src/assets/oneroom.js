@@ -1,7 +1,3 @@
-// var apple = 10;
-// export default apple
-// exprt {apple, apple2} 변수가 2개일 때
-
 export default [{
   id : 0,
   title: "Sinrim station 30 meters away",

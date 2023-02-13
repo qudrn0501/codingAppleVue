@@ -1,10 +1,18 @@
 <template>
+  <!-- v-if 문법 더 알아야할 내용
+    v-if가 참이 아니면 v-else, v-else-if 실행
+  <div v-if="1 == 2">안녕하세요</div>
+  <div v-else-if="1 == 1">안녕하지 않아요</div> -->
 
-  <!-- import export 쓰기 -->
+
+  <!-- 모달창 내용 채우기 -->
+  <!-- (숙제) 이미지, 상품설명, 가격 이런거 채워오셈 -->
   <div class="black-bg" v-if="모달창열렸니 == true">
     <div class="white-bg">
-      <h4>상세페이지임</h4>
-      <p>상세페이지 내용임</p>
+      <h4>{{ 원룸들[누른거].title }}</h4>
+      <img :src="원룸들[누른거].image" class="room-img">
+      <p>{{ 원룸들[누른거].content }}</p>
+      <p>{{ 원룸들[누른거].price }}</p>
       <button @click="모달창열렸니 = false">닫기</button>
     </div>
   </div>
@@ -13,26 +21,22 @@
     <a v-for="a in 메뉴들" :key="a">{{ a }}</a> 
   </div>
 
-  <!-- (숙제) 6개 상품 전부 알아서 진열해보셈 -->
   <div v-for="(원룸, i) in 원룸들" :key="i">
     <img :src="원룸들[i].image" class="room-img">
-    <h4>{{ 원룸들[i].title }}</h4>
+    <h4 @click="모달창열렸니 = true; 누른거 = i">{{ 원룸들[i].title }}</h4>
     <P>{{ 원룸들[i].price }}원</P>
   </div>
 </template>
 
 <script>
-// import / export 문법 쓰는 법
-// 1. export default 변수명
-// 2. import 변수명 from 파일경로
 import data from './assets/oneroom'
-// import {apple, apple2} from './~~' 변수 두개 이상 받을때
 
 export default {
   name: 'App',
   data(){ 
     return {
-      원룸들 : data, // 받아온 데이터
+      원룸들 : data,
+      누른거 : 0,
       모달창열렸니: false,
       메뉴들 : ['Home', 'Shop', 'About'],
       products : ['역삼동원룸', '천호동원룸', '마포구원룸'],
