@@ -8,16 +8,21 @@
   <div>
     <h4>{{ products[0] }}</h4>
     <P>40 만원</P>
-    <button>허위매물신고</button> <span>신고수 : {{ 신고수 }}</span>
+    <button @click="increase(0)">허위매물신고</button> 
+    <span>신고수 : {{ 신고수[0] }}</span>
     <!-- v-on:click == @click -->
   </div>
   <div>
     <h4>{{ products[1] }}</h4>
     <P>50 만원</P>
+    <button @click="increase(1)">허위매물신고</button> 
+    <span>신고수 : {{ 신고수[1] }}</span>
   </div>
   <div>
     <h4>{{ products[2] }}</h4>
     <P>60 만원</P>
+    <button @click="increase(2)">허위매물신고</button> 
+    <span>신고수 : {{ 신고수[2] }}</span>
   </div>
 </template>
 
@@ -28,7 +33,16 @@ export default {
     return {
       메뉴들 : ['Home', 'Shop', 'About'],
       products : ['역삼동원룸', '천호동원룸', '마포구원룸'],
-      신고수 : 0,
+      신고수 : [0, 0, 0],
+      // (숙제) 모든 상품에 신고수 버튼 만들어오기
+    }
+  },
+  methods: {
+    // 함수를 만드는 공간
+    increase(i) {
+      this.신고수[i] += 1;
+      // methods에서 직접 data를 가져올 수 없으므로
+      // this.data명 방식으로 입력해야한다.
     }
   },
   components: {
