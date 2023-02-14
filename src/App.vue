@@ -1,15 +1,15 @@
 <template>
-  <Modal :원룸들="원룸들" :누른거="누른거" :모달창열렸니="모달창열렸니" /> 
+  <Modal @closeModal="모달창열렸니 = false" :원룸들="원룸들" :누른거="누른거" :모달창열렸니="모달창열렸니" /> 
 
   <div class="menu">
     <a v-for="a in 메뉴들" :key="a">{{ a }}</a> 
   </div>
 
-  <Discount v-bind="오브젝트" /> <!-- :이름="오브젝트.name" :나이="오브젝트.age" 표현과 같음 -->
-  <!-- props 보낼 때 다양한 자료형 입력가능
-  작명="문자자료" 간단한 문자자료형은 :없이 가능, 숫자도 가능하나 문자로 전송됨 -->
+  <Discount v-bind="오브젝트" /> 
 
-  <Card v-for="(원룸, i) in 원룸들" :key="i" :원룸="원룸들[i]" />
+  <Card @openModal="모달창열렸니 = true; 누른거 = $event" v-for="(원룸, i) in 원룸들" :key="i" :원룸="원룸들[i]" />
+  <!-- 부모가 메시지 수신할 땐 @작명한거="" 
+  자식이 보낸 데이터는 $event 변수에 담겨있음-->
 
 </template>
 
