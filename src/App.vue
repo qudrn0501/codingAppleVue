@@ -8,8 +8,6 @@
   <Discount v-bind="오브젝트" /> 
 
   <Card @openModal="모달창열렸니 = true; 누른거 = $event" v-for="(원룸, i) in 원룸들" :key="i" :원룸="원룸들[i]" />
-  <!-- 부모가 메시지 수신할 땐 @작명한거="" 
-  자식이 보낸 데이터는 $event 변수에 담겨있음-->
 
 </template>
 
