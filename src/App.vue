@@ -1,38 +1,32 @@
 <template>
-  <!-- Component : 긴 html을 한 단어로 줄일 수 있는 문법 -->
-  <Modal />
-  <!-- 컴포넌트 만들면 데이터바인딩할 때 귀찮은 일이 생길 수 있음 -->
+  <!-- 1. 밑에 데이터를 골라서 보내셈
+  <자식 :작명="데이터" 
+  :는 class처럼 기존 html에서 데이터 바인딩에도 쓰지만
+  props를 전송할 때도 쓰인다. (정식 명칭은 v-bind:)-->
+  <Modal :원룸들="원룸들" :누른거="누른거" :모달창열렸니="모달창열렸니" /> 
 
   <div class="menu">
     <a v-for="a in 메뉴들" :key="a">{{ a }}</a> 
   </div>
 
-  <!-- 축약해둔 컴포넌트 쓰는법
-  1. vue파일 import
-  2. 등록하고
-  3. 쓰셈 -->
   <Discount />
-  <!-- 3. 쓰셈 -->
-  <!-- 컴포넌트 쓰는 이유
-  1. 아름다워
-  2. 재사용쉬움 
-  (반복적으로 출현할 부분만 컴포넌트화 권장, 코드가 필연적으로 복잡해짐) -->
 
-  <div v-for="(원룸, i) in 원룸들" :key="i">
-    <img :src="원룸들[i].image" class="room-img">
-    <h4 @click="모달창열렸니 = true; 누른거 = i">{{ 원룸들[i].title }}</h4>
-    <P>{{ 원룸들[i].price }}원</P>
-  </div>
+  <Card v-for="(원룸, i) in 원룸들" :key="i" :원룸들="원룸들" :누른거="누른거" :모달창열렸니="모달창열렸니" />
+
 </template>
 
 <script>
 import data from './assets/oneroom'
-import Discount from './Discount.vue' // 1. vue파일 import
+import Discount from './Discount.vue'
 import Modal from './Modal.vue' 
+import Card from './Card.vue' 
 
 export default {
   name: 'App',
   data(){ 
+    // 데이터는 App.vue 한 곳에 보관하고
+    // 필요하면 가져다 씀(props)
+    // 자식이 부모의 데이터를 가져가 쓰고 싶으면 props로 전송해야함
     return {
       원룸들 : data,
       누른거 : 0,
@@ -48,10 +42,12 @@ export default {
     }
   },
   components: {
-    // 2. 등록하고
-    Discount : Discount, // 왼쪽은 자유작명 : 오른쪽은 import한 이름
-    //  Discount, es6 신문법, 하나만 해도 된다
+    // 용어정리 : 부모/자식 컴포넌트
+    // App.vue는 부모, Modal.vue는 자식 컴포넌트
+    // (숙제) 상품목록도 <Card/> 컴포넌트로 바꿔보셈 (props 직접 변경되는 것들은 지우든 하셈)
+    Discount : Discount, 
     Modal,
+    Card,
   }
 }
 </script>
