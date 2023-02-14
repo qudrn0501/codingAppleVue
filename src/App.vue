@@ -1,17 +1,15 @@
 <template>
-  <!-- 1. 밑에 데이터를 골라서 보내셈
-  <자식 :작명="데이터" 
-  :는 class처럼 기존 html에서 데이터 바인딩에도 쓰지만
-  props를 전송할 때도 쓰인다. (정식 명칭은 v-bind:)-->
   <Modal :원룸들="원룸들" :누른거="누른거" :모달창열렸니="모달창열렸니" /> 
 
   <div class="menu">
     <a v-for="a in 메뉴들" :key="a">{{ a }}</a> 
   </div>
 
-  <Discount />
+  <Discount v-bind="오브젝트" /> <!-- :이름="오브젝트.name" :나이="오브젝트.age" 표현과 같음 -->
+  <!-- props 보낼 때 다양한 자료형 입력가능
+  작명="문자자료" 간단한 문자자료형은 :없이 가능, 숫자도 가능하나 문자로 전송됨 -->
 
-  <Card v-for="(원룸, i) in 원룸들" :key="i" :원룸들="원룸들" :누른거="누른거" :모달창열렸니="모달창열렸니" />
+  <Card v-for="(원룸, i) in 원룸들" :key="i" :원룸="원룸들[i]" />
 
 </template>
 
@@ -24,10 +22,8 @@ import Card from './Card.vue'
 export default {
   name: 'App',
   data(){ 
-    // 데이터는 App.vue 한 곳에 보관하고
-    // 필요하면 가져다 씀(props)
-    // 자식이 부모의 데이터를 가져가 쓰고 싶으면 props로 전송해야함
     return {
+      오브젝트 : { name : 'kim', age : 20},
       원룸들 : data,
       누른거 : 0,
       모달창열렸니: false,
@@ -42,9 +38,6 @@ export default {
     }
   },
   components: {
-    // 용어정리 : 부모/자식 컴포넌트
-    // App.vue는 부모, Modal.vue는 자식 컴포넌트
-    // (숙제) 상품목록도 <Card/> 컴포넌트로 바꿔보셈 (props 직접 변경되는 것들은 지우든 하셈)
     Discount : Discount, 
     Modal,
     Card,
